@@ -7,13 +7,23 @@
 An original, open-source desktop media player inspired by VLC — built with
 **Python**, **Qt (PySide6)** and the **libmpv** playback engine.
 
+## Download
+
+**Windows 10/11:** grab `GlintSetup-<version>.exe` from the
+[latest release](https://github.com/Belloyb/Glint/releases/latest) — no admin
+rights needed. Expect a SmartScreen warning (unsigned installer):
+*More info → Run anyway*. Other platforms: install from source (below).
+
+> Glint is an independent project and is not affiliated with, endorsed by, or
+> connected to VideoLAN or VLC.
+
 ![Glint — Phase 4](docs/screenshots/phase4-app.png)
 
 > Screenshot taken in a headless CI environment (software rendering — the
 > video area is black there); on real GPU hardware the central area shows
 > video.
 
-> Status: **Phase 12 of 12 complete — hardware-validated on Windows (v0.13.0)**
+> Status: **Phase 12 of 12 complete — hardware-validated on Windows (v0.13.1)**
 > All planned phases delivered: player, controls, playlist, subtitles,
 > media information, settings, advanced playback, network streaming,
 > performance pass, packaging and polish. Real-hardware validation:
