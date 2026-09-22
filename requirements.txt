@@ -1,0 +1,5 @@
+# Runtime dependencies (see pyproject.toml for metadata).
+PySide6>=6.6
+python-mpv>=1.0
+
+# Development / testing: pip install -e ".[dev]"
