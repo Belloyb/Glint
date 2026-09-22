@@ -4,8 +4,8 @@
 # in tests/core/test_packaging.py enforces the agreement).
 VSVersionInfo(
   ffi=FixedFileInfo(
-    filevers=(0, 13, 0, 0),
-    prodvers=(0, 13, 0, 0),
+    filevers=(0, 13, 1, 0),
+    prodvers=(0, 13, 1, 0),
     mask=0x3F,
     flags=0x0,
     OS=0x40004,
@@ -20,12 +20,12 @@ VSVersionInfo(
         '040904B0',
         [StringStruct('CompanyName', 'glint-player contributors'),
         StringStruct('FileDescription', 'Glint media player'),
-        StringStruct('FileVersion', '0.13.0.0'),
+        StringStruct('FileVersion', '0.13.1.0'),
         StringStruct('InternalName', 'Glint'),
         StringStruct('LegalCopyright', '© 2026 glint-player contributors — GPL-3.0-or-later'),
         StringStruct('OriginalFilename', 'Glint.exe'),
         StringStruct('ProductName', 'Glint'),
-        StringStruct('ProductVersion', '0.13.0.0')])
+        StringStruct('ProductVersion', '0.13.1.0')])
       ]),
     VarFileInfo([VarStruct('Translation', [1033, 1200])])
   ]

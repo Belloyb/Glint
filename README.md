@@ -40,6 +40,7 @@ An original, open-source desktop media player inspired by VLC — built with
   released on pause/stop/quit so power settings still apply)
 - Frame stepping forward/backward (one frame at a time while paused)
 - Volume, mute
+- Open files/URLs from the command line and double-click (default-player ready)
 - Volume up to 200%, VLC-style: 100% is unity (no amplification); above it
   the engine applies software gain — the slider's amber zone and tooltip
   make it clear when you are amplified
@@ -258,6 +259,7 @@ breaking the app. `GLINT_CONFIG_DIR` overrides the whole config directory
 | Display sleeps during playback | Not supported on this platform yet (Windows-only for now) — or the file failed and playback is not in the PLAYING state. |
 | `OpenGL error INVALID_ENUM` in the log | Benign known log line on some drivers (mpv issue #15019); playback is unaffected on real GPUs. |
 | Distortion at volumes above 100% | Expected: above 100% is software amplification and can clip on loud material. Lower the volume. |
+| Glint missing from Windows' Default apps list | Install v0.13.1+ (the installer registers Glint as a candidate player), then Settings → Apps → Default apps → Glint → Set default. |
 | A file will not play | The banner shows the reason; the log (`glint.log`) contains the engine detail line. |
 
 ## Architecture (summary)

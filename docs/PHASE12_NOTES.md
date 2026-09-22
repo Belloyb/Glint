@@ -305,3 +305,26 @@ fallbacks, and an automatic one-time migration that copies a legacy
 one so settings, recents and logs survive the rename. Historical phase
 notes and quoted field outputs keep the Lumen name deliberately — they
 are records, not runbooks.
+
+### Rename field confirmation (2026-09-22)
+
+v0.13.0 applied and validated on the Windows field machine: editable
+install refreshed (glint-player), `python -m app.main` runs as Glint,
+PyInstaller rebuild produced dist\Glint\Glint.exe with --check PASS, and
+Inno Setup compiled GlintSetup-0.13.0.exe successfully. The rename
+track is closed.
+
+## Field fix (v0.13.1) — default-player support
+
+Field report: "how do I make Glint my default video player — it is not in
+the list of players?" Two root causes, both fixed:
+
+1. Glint.exe ignored positional file arguments: main() handled only
+   --version/--check, so a double-clicked or "Open with"-launched file
+   opened an empty player. Added `_collect_media_args` +
+   `MainWindow.open_uris()` — launch args queue and auto-play (tested).
+2. The installer never registered Glint with Windows' Default-apps
+   system, so it could not appear in Settings → Apps → Default apps.
+   The script now writes the standard Capabilities +
+   RegisteredApplications entries (HKCU, 18 extensions, uninstall-cleaned)
+   — a pure listing until the user deliberately picks Glint in Settings.

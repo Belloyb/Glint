@@ -699,6 +699,15 @@ class MainWindow(QMainWindow):
         if folder:
             self._scan_folder_async(Path(folder), recursive=False)
 
+    def open_uris(self, uris: list[str]) -> None:
+        """Open files/URLs (e.g. passed on the command line at launch).
+
+        Public entry point for :mod:`app.main` and a future single-instance
+        hand-off: local paths or remote URLs are queued; playback starts
+        when the player is idle.
+        """
+        self._add_uris_and_maybe_play(list(uris))
+
     def _add_uris_and_maybe_play(self, uris: list[str]) -> None:
         """Add URIs to the playlist; start playback when nothing is playing."""
         added = self._queue.add(uris)

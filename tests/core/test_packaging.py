@@ -225,6 +225,11 @@ def test_installer_script_basics():
     # against this script's per-user HKCU associations and can misplace
     # them under an elevating account (first Windows compile, v0.12.8).
     assert "PrivilegesRequired=lowest" in iss
+    # v0.13.1: Default-apps registration so Glint appears in Settings as a
+    # candidate media player (the "not showing in the list of players" fix).
+    assert "Software\\RegisteredApplications" in iss
+    assert "Software\\Glint\\Capabilities" in iss
+    assert iss.count("Capabilities\\FileAssociations") >= 18
 
 
 def test_association_include_is_plain_registry_lines():
@@ -245,3 +250,18 @@ def test_association_include_is_plain_registry_lines():
         assert line.endswith("Tasks: fileassoc"), line
         assert "uninsdeletevalue" in line
     assert "AssocExt(" not in inc  # the macro approach must not come back
+
+
+def test_launch_media_args_collected():
+    """v0.13.1: positional CLI args are files/URLs to open (default-player
+    support); flags are excluded."""
+    from app.main import _collect_media_args
+
+    assert _collect_media_args([]) == []
+    assert _collect_media_args(["--version"]) == []
+    assert _collect_media_args(["--check", "-x"]) == []
+    assert _collect_media_args(["C:\\Videos\\movie.mkv"]) == ["C:\\Videos\\movie.mkv"]
+    assert _collect_media_args(["--check", "/home/u/a.mkv", "https://example.com/s.m3u8"]) == [
+        "/home/u/a.mkv",
+        "https://example.com/s.m3u8",
+    ]

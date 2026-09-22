@@ -214,3 +214,13 @@ def test_volume_slider_amplified_range(app, qtbot):
 
     slider.setValue(80)  # back inside the normal zone
     assert "amplified" not in slider.toolTip()
+
+
+# --------------------------------------------------- default-player launch
+def test_open_uris_launches_playback(app, qtbot, qapp, sample_media):
+    """v0.13.1: files passed at launch (double-click / Open with) queue and
+    play — the entry point Glint.exe receives as a default player."""
+    app.window.open_uris([str(sample_media)])
+    assert pump(qapp, lambda: app.controller.state is PlaybackState.PLAYING), (
+        f"launch file never started (state={app.controller.state})"
+    )

@@ -314,6 +314,16 @@ def _attach_parent_console() -> None:
         pass  # e.g. launched by double-click: nothing to attach to
 
 
+def _collect_media_args(args: list[str]) -> list[str]:
+    """Positional arguments are media files/URLs to open on launch.
+
+    Flags (anything starting with ``-``) are excluded; everything else is
+    a path or URL — the exact form Windows passes when Glint is launched
+    as the default handler for a file type (double-click / "Open with").
+    """
+    return [arg for arg in args if not arg.startswith("-")]
+
+
 def main(argv: list[str] | None = None) -> int:
     args = list(sys.argv[1:] if argv is None else argv)
     if "--version" in args or "--check" in args:
@@ -339,6 +349,12 @@ def main(argv: list[str] | None = None) -> int:
 
     application = Application(app)
     application.show()
+
+    media_args = _collect_media_args(args)
+    if media_args:
+        # Launched with files/URLs (double-click, "Open with", shell) —
+        # queue them and start playback, like any default player must.
+        application.window.open_uris(media_args)
 
     app.aboutToQuit.connect(application.shutdown)
     return app.exec()

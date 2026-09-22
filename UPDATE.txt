@@ -1,0 +1,31 @@
+Glint 0.13.1 - default video player support
+==========================================
+
+The fix for "Glint is not showing in the list of players":
+
+  1. Glint.exe now OPENS files passed to it (double-click a video /
+     "Open with" / command line) - previously it ignored them and
+     started empty. This is what a default player must do.
+  2. The installer now registers Glint with Windows' Default-apps
+     system, so it APPEARS in Settings > Apps > Default apps.
+
+Install + become the default player:
+  1. Extract this zip OVER your Glint folder (overwrite when asked).
+  2. Rebuild the bundle and installer:
+       Remove-Item build, dist -Recurse -Force
+       pyinstaller packaging\glint.spec
+       & "C:\Users\Shifu\AppData\Local\Programs\Inno Setup 6\iscc.exe" packaging\windows-installer.iss
+  3. Run dist\installer\GlintSetup-0.13.1.exe - installs over 0.13.0
+     in place (same upgrade identity; settings untouched).
+  4. Make it the default:
+       Windows Settings > Apps > Default apps > search "Glint"
+       > click Glint > "Set default" button.
+     (Or per format: set defaults by file type, e.g. .mkv -> Glint.)
+  5. Test it: double-click any video in Explorer - Glint should open
+     AND start playing it immediately.
+
+Note: do NOT set 0.13.0 as default - it opens the file list empty.
+Update to 0.13.1 first. Also: 0.13.1 can be published as a new GitHub
+release (tag v0.13.1) with GlintSetup-0.13.1.exe attached.
+
+Test status: 312 passed (206 core/player + 106 UI).

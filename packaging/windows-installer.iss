@@ -9,7 +9,7 @@
 ; hardware per docs/HARDWARE_VALIDATION.md §2.
 
 #define MyAppName "Glint"
-#define MyAppVersion "0.13.0"
+#define MyAppVersion "0.13.1"
 #define MyAppPublisher "glint-player contributors"
 #define MyAppExeName "Glint.exe"
 
@@ -68,6 +68,35 @@ Root: HKCU; Subkey: "Software\Classes\Glint.MediaFile\DefaultIcon"; ValueType: s
 Root: HKCU; Subkey: "Software\Classes\Glint.MediaFile\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" ""%1"""
 ; Per-extension association lines (plain [Registry] entries, no macro):
 #include "assoc-extensions.iss.inc"
+
+; --- Default-apps registration (v0.13.1) ---------------------------------
+; Makes Glint APPEAR in Settings > Apps > Default apps and in the
+; "Open with" candidates, so users can set it as their default player
+; the Windows-blessed way. Purely a listing — nothing is claimed until
+; the user picks Glint in Settings; registered regardless of the optional
+; fileassoc task above.
+Root: HKCU; Subkey: "Software\Glint\Capabilities"; ValueType: string; ValueName: ""; ValueData: "Glint media player"; Flags: uninsdeletekey
+Root: HKCU; Subkey: "Software\Glint\Capabilities"; ValueType: string; ValueName: "ApplicationDescription"; ValueData: "Glint - a free, open-source media player"
+Root: HKCU; Subkey: "Software\Glint\Capabilities"; ValueType: string; ValueName: "ApplicationIcon"; ValueData: "{app}\Glint.exe,0"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".mkv"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".mp4"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".m4v"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".mov"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".avi"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".webm"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".wmv"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".flv"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".ts"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".mp3"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".flac"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".ogg"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".opus"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".wav"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".m4a"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".aac"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".m3u"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\Glint\Capabilities\FileAssociations"; ValueType: string; ValueName: ".m3u8"; ValueData: "Glint.MediaFile"
+Root: HKCU; Subkey: "Software\RegisteredApplications"; ValueType: string; ValueName: "Glint"; ValueData: "Software\Glint\Capabilities"; Flags: uninsdeletevalue
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#MyAppName}}"; Flags: nowait postinstall skipifsilent
